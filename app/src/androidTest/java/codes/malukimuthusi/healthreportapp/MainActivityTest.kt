@@ -29,7 +29,7 @@ class MainActivityTest {
     fun mainActivityTest() {
         val bottomNavigationItemView = onView(
             allOf(
-                withId(R.id.navigation_dashboard), withContentDescription("Dashboard"),
+                withId(R.id.navigation_info), withContentDescription("Dashboard"),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.nav_view),
@@ -44,7 +44,7 @@ class MainActivityTest {
 
         val bottomNavigationItemView2 = onView(
             allOf(
-                withId(R.id.navigation_dashboard), withContentDescription("Dashboard"),
+                withId(R.id.navigation_info), withContentDescription("Dashboard"),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.nav_view),
