@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_info"
-        android:name="codes.malukimuthusi.healthreportapp.ui.dashboard.DashboardFragment"
+        android:name="codes.malukimuthusi.healthreportapp.ui.gameInfo.GameInfoFragment"
         android:label="@string/title_info"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_game_info" />
 
     <fragment
         android:id="@+id/navigation_notifications"
