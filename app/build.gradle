@@ -69,4 +69,15 @@ dependencies {
     // instrumentation tests
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core"
     androidTestImplementation "androidx.test:rules:$test_rules"
+
+    // MPAndroid for drawing graphs
+    implementation "com.github.PhilJay:MPAndroidChart:$mPAndroidChart"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit"
+
+    // moshi
+    implementation "com.squareup.moshi:moshi:$moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi"
 }

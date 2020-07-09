@@ -4,4 +4,12 @@
     <string name="title_info">Info</string>
     <string name="title_notifications">Notifications</string>
     <string name="image_description">Image of Covid-19 actions.</string>
+    <string name="title_message">Help Stop Covid-19</string>
+    <string name="covid_19_live_tracker">Covid-19 Live Tracker</string>
+    <string name="kenya">Kenya</string>
+    <string name="global">Global</string>
+    <string-array name="countries">
+        <item>Global</item>
+        <item>Kenya</item>
+    </string-array>
 </resources>
