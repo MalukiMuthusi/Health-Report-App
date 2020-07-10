@@ -1,39 +1,52 @@
 package codes.malukimuthusi.healthreportapp.ui.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import codes.malukimuthusi.healthreportapp.WebService
+import codes.malukimuthusi.healthreportapp.Covid19APIService
+import codes.malukimuthusi.healthreportapp.dataModels.KenyaSummary
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
+import timber.log.Timber
 
 class HomeViewModel : ViewModel() {
 
-    val retofit = Retrofit.Builder()
-        .baseUrl("https://covid19.mathdro.id/api/")
-        .build()
+    // live data
+    private val _kenyaData = MutableLiveData<KenyaSummary>()
+    val kenyaData: LiveData<KenyaSummary>
+        get() = _kenyaData
+
+    // toast for error
+    private val _toast = MutableLiveData<Boolean>()
+    val showErrorToast: LiveData<Boolean>
+        get() = _toast
+
+    // toast for success
+
 
     fun fetching() {
-        val service = retofit.create(WebService::class.java)
+        val service = Covid19APIService.webService
 
-        viewModelScope.launch {
-
-            // TODO put call in try block
-            val answer = service.fetchKenyaData()
-
-            when {
-                answer.isSuccessful -> {
-                    // TODO request succeeded
-                }
-
-                answer.errorBody() != null -> {
-                    // TODO server error
-                }
-
-                else -> {
-                    // TODO response with emty body
-                }
+        try {
+            CoroutineScope(Dispatchers.Main).launch {
+                _kenyaData.value = service.fetchKenyaData()
             }
+
+        } catch (e: Exception) {
+            Timber.e(e, "Error Fetching Country Data")
+            errorToast()
         }
+
+
+    }
+
+    private fun errorToast() {
+        _toast.value = true
+    }
+
+    fun toastShown() {
+        _toast.value = false
     }
 
 }

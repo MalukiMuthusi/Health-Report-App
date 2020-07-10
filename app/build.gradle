@@ -61,6 +61,7 @@ dependencies {
 
     // lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // local tests
     testImplementation "junit:junit:$junit"
@@ -78,6 +79,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit"
 
     // moshi
-    implementation "com.squareup.moshi:moshi:$moshi"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi"
+
+    // Gson
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
 }

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import codes.malukimuthusi.healthreportapp.R
 import codes.malukimuthusi.healthreportapp.databinding.FragmentHomeBinding
 import com.github.mikephil.charting.data.PieData
@@ -27,10 +28,12 @@ class HomeFragment : Fragment() {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.kenya -> {
                     Toast.makeText(requireContext(), "KENYA selected", Toast.LENGTH_SHORT).show()
+                    homeViewModel.fetching()
                 }
 
                 R.id.global -> {
@@ -39,23 +42,40 @@ class HomeFragment : Fragment() {
             }
         }
 
-        setUpPieChart()
+        homeViewModel.kenyaData.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(requireContext(), it.lastUpdate, Toast.LENGTH_SHORT).show()
+            setUpPieChart(
+                it.recovered?.value?.toFloat() ?: 0f,
+                it.confirmed?.value?.toFloat() ?: 0f,
+                it.deaths?.value?.toFloat() ?: 0f
+            )
+
+        })
+
+        homeViewModel.showErrorToast.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                Toast.makeText(requireContext(), "Failed to Get Data", Toast.LENGTH_SHORT)
+                    .show()
+                homeViewModel.toastShown()
+            }
+        })
 
         return binding.root
     }
 
 
-    private fun setUpPieChart() {
+    private fun setUpPieChart(recovered: Float, inflected: Float, dead: Float) {
         // list of data entries for the pie chart
         val pieList = listOf(
-            PieEntry(2000f, "Recovered"),
-            PieEntry(3000f, "Infected"),
-            PieEntry(1000f, "Dead")
+            PieEntry(recovered, "Recovered"),
+            PieEntry(inflected, "Infected"),
+            PieEntry(dead, "Dead")
         )
 
         val dataSet = PieDataSet(pieList, "Covid-19 Stats")
         dataSet.apply {
             colors = getColorList()
+            setDrawValues(false)
         }
         binding.chart.data = PieData(dataSet)
         binding.chart.invalidate()
