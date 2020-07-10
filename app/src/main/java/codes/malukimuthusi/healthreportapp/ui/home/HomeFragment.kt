@@ -14,6 +14,7 @@ import codes.malukimuthusi.healthreportapp.databinding.FragmentHomeBinding
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import kotlinx.android.synthetic.main.compound_view.view.*
 
 class HomeFragment : Fragment() {
 
@@ -27,6 +28,20 @@ class HomeFragment : Fragment() {
     ): View? {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.viewModel = homeViewModel
+        binding.lifecycleOwner = this
+
+        binding.chart.apply {
+            description.isEnabled = false
+            legend.isEnabled = false
+            isDrawHoleEnabled = true
+            holeRadius = 60f
+//            setTouchEnabled(false)
+//            setDrawEntryLabels(false)
+            transparentCircleRadius = 0f
+//            setHoleColor(ContextCompat.getColor(requireContext(), R.color.background))
+            invalidate()
+        }
 
 
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -42,8 +57,14 @@ class HomeFragment : Fragment() {
             }
         }
 
+
+
         homeViewModel.kenyaData.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), it.lastUpdate, Toast.LENGTH_SHORT).show()
+            binding.confirmed.stat_value.text = it.confirmed?.value.toString()
+            binding.deaths.stat_value.text = it.deaths?.value.toString()
+            binding.recovered.stat_value.text = it.recovered?.value.toString()
+
             setUpPieChart(
                 it.recovered?.value?.toFloat() ?: 0f,
                 it.confirmed?.value?.toFloat() ?: 0f,
@@ -68,8 +89,8 @@ class HomeFragment : Fragment() {
         // list of data entries for the pie chart
         val pieList = listOf(
             PieEntry(recovered, "Recovered"),
-            PieEntry(inflected, "Infected"),
-            PieEntry(dead, "Dead")
+            PieEntry(inflected, "Confirmed"),
+            PieEntry(dead, "Deaths")
         )
 
         val dataSet = PieDataSet(pieList, "Covid-19 Stats")

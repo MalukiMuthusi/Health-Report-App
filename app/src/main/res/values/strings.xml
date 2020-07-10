@@ -5,9 +5,15 @@
     <string name="title_notifications">Notifications</string>
     <string name="image_description">Image of Covid-19 actions.</string>
     <string name="title_message">Help Stop Covid-19</string>
-    <string name="covid_19_live_tracker">Covid-19 Live Tracker</string>
+    <string name="covid_19_live_tracker">Covid-19 Tracker</string>
     <string name="kenya">Kenya</string>
     <string name="global">Global</string>
+    <string name="number_blank">-</string>
+    <string name="title">title</string>
+    <string name="value">Value</string>
+    <string name="recovered">Recovered</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="deaths">Deaths</string>
     <string-array name="countries">
         <item>Global</item>
         <item>Kenya</item>

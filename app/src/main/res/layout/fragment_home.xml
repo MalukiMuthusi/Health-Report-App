@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="codes.malukimuthusi.healthreportapp.ui.home.HomeViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,10 +20,11 @@
 
         <TextView
             android:id="@+id/covid19Tracker"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            style="@style/TextAppearance.MaterialComponents.Headline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="@string/covid_19_live_tracker"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,6 +79,54 @@
 
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
+
+        <codes.malukimuthusi.healthreportapp.SingleStatView
+            android:id="@+id/recovered"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:icon="@drawable/ic_baseline_favorite_border_24"
+            app:iconColor="@color/GREEN_A_700"
+            app:layout_constraintEnd_toStartOf="@+id/confirmed"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chips"
+            app:statValue="-"
+            app:title="@string/recovered" />
+
+        <codes.malukimuthusi.healthreportapp.SingleStatView
+            android:id="@+id/confirmed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:icon="@drawable/ic_info_outline_black_24dp"
+            app:iconColor="@color/YELLOW_A_700"
+            app:layout_constraintBottom_toBottomOf="@+id/recovered"
+            app:layout_constraintEnd_toStartOf="@+id/deaths"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/recovered"
+            app:layout_constraintTop_toTopOf="@+id/recovered"
+            app:statValue="-"
+            app:title="@string/confirmed" />
+
+
+        <codes.malukimuthusi.healthreportapp.SingleStatView
+            android:id="@+id/deaths"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:icon="@drawable/ic_emoticon_death_24dp"
+            app:iconColor="@color/RED_A_700"
+            app:layout_constraintBottom_toBottomOf="@+id/confirmed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/confirmed"
+            app:layout_constraintTop_toTopOf="@+id/confirmed"
+            app:statValue="-"
+            app:title="@string/deaths" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

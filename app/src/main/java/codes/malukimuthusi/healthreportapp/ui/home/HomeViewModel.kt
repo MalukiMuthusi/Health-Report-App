@@ -11,6 +11,9 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class HomeViewModel : ViewModel() {
+    var confirmed = "-"
+    var recorvered = "-"
+    var deaths = "-"
 
     // live data
     private val _kenyaData = MutableLiveData<KenyaSummary>()
@@ -31,6 +34,9 @@ class HomeViewModel : ViewModel() {
         try {
             CoroutineScope(Dispatchers.Main).launch {
                 _kenyaData.value = service.fetchKenyaData()
+                confirmed = _kenyaData.value?.confirmed?.value.toString()
+                recorvered = _kenyaData.value?.recovered?.value.toString()
+                deaths = _kenyaData.value?.deaths?.value.toString()
             }
 
         } catch (e: Exception) {
