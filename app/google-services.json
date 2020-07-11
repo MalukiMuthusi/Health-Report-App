@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1012505138808",
+    "firebase_url": "https://health-report-app.firebaseio.com",
+    "project_id": "health-report-app",
+    "storage_bucket": "health-report-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012505138808:android:374136e353cd35f56abf8d",
+        "android_client_info": {
+          "package_name": "codes.malukimuthusi.healthreportapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012505138808-8ft54coj0oqulsaq76eec4tnmfp0km4r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "codes.malukimuthusi.healthreportapp",
+            "certificate_hash": "aaa8a855aa14c99eed38be46e1f5525cca6de4d8"
+          }
+        },
+        {
+          "client_id": "1012505138808-1arnk43p36uuhmvi2ah4pvucu5f3s69b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqiDqcbgb0T3_KBJ2DEbhYs3NXrD2M4-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012505138808-1arnk43p36uuhmvi2ah4pvucu5f3s69b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

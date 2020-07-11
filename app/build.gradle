@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
@@ -62,6 +63,8 @@ dependencies {
     // lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
     implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
     // local tests
     testImplementation "junit:junit:$junit"
@@ -83,4 +86,7 @@ dependencies {
 
     // Gson
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+
+    // firebase cloud store
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.5.0'
 }

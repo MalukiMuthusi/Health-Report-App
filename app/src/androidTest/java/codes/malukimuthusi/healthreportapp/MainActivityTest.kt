@@ -59,7 +59,7 @@ class MainActivityTest {
 
         val bottomNavigationItemView3 = onView(
             allOf(
-                withId(R.id.navigation_notifications), withContentDescription("Notifications"),
+                withId(R.id.navigation_report), withContentDescription("Notifications"),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.nav_view),

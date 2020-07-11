@@ -18,8 +18,13 @@
         tools:layout="@layout/fragment_game_info" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="codes.malukimuthusi.healthreportapp.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:id="@+id/navigation_report"
+        android:name="codes.malukimuthusi.healthreportapp.ui.notifications.ReportFragment"
+        android:label="@string/title_report"
         tools:layout="@layout/fragment_report" />
+    <fragment
+        android:id="@+id/reportsViewFragment"
+        android:name="codes.malukimuthusi.healthreportapp.ReportsViewFragment"
+        android:label="reports_view_fragment"
+        tools:layout="@layout/reports_view_fragment" />
 </navigation>
