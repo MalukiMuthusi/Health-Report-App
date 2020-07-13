@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import codes.malukimuthusi.healthreportapp.dataModels.Offence
 import codes.malukimuthusi.healthreportapp.databinding.FragmentReportBinding
@@ -29,6 +31,15 @@ class ReportFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // set the adapter for the route autocomplete list.
+        val list = listOf("Uhuru Road", "Lang'ata Road", "Waiyaki Way")
+        val adapter = ArrayAdapter<String>(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            list
+        )
+        (binding.route.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
         binding.fab.setOnClickListener {
 
