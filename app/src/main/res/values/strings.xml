@@ -14,6 +14,13 @@
     <string name="recovered">Recovered</string>
     <string name="confirmed">Confirmed</string>
     <string name="deaths">Deaths</string>
+    <string name="offence_description">Offence Description</string>
+    <string name="kcd_133k">KCD 133K</string>
+    <string name="long_description">Some Very Long Description.</string>
+    <string name="short_description">Offence Short Description</string>
+    <string name="matatu_details">Matatu Details</string>
+    <string name="culprint_name">Culprint Name</string>
+    <string name="culprit">Culprit:</string>
     <string-array name="countries">
         <item>Global</item>
         <item>Kenya</item>

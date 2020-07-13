@@ -5,7 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import codes.malukimuthusi.healthreportapp.dataModels.Offence
+import codes.malukimuthusi.healthreportapp.databinding.ReportsViewFragmentBinding
+import codes.malukimuthusi.healthreportapp.ui.OffenceViewHolder
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ReportsViewFragment : Fragment() {
 
@@ -14,18 +20,45 @@ class ReportsViewFragment : Fragment() {
     }
 
     private lateinit var viewModel: ReportsViewViewModel
+    private lateinit var binding: ReportsViewFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.reports_view_fragment, container, false)
-    }
+        binding = ReportsViewFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.recylerView.layoutManager = LinearLayoutManager(requireContext())
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ReportsViewViewModel::class.java)
-        // TODO: Use the ViewModel
+        // firestore
+        val query = FirebaseFirestore.getInstance()
+            .collection("offences")
+
+        val options = FirestoreRecyclerOptions.Builder<Offence>()
+            .setQuery(query, Offence::class.java)
+            .setLifecycleOwner(viewLifecycleOwner)
+            .build()
+
+        val recylerAdapter =
+            object : FirestoreRecyclerAdapter<Offence, OffenceViewHolder>(options) {
+                override fun onCreateViewHolder(
+                    parent: ViewGroup,
+                    viewType: Int
+                ): OffenceViewHolder {
+                    return OffenceViewHolder.instance(parent)
+                }
+
+                override fun onBindViewHolder(
+                    holder: OffenceViewHolder,
+                    position: Int,
+                    model: Offence
+                ) {
+                    holder.bind(model)
+                }
+            }
+
+        binding.recylerView.adapter = recylerAdapter
+        return binding.root
     }
 
 }

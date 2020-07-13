@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_report"
-        android:name="codes.malukimuthusi.healthreportapp.ui.notifications.ReportFragment"
+        android:name="codes.malukimuthusi.healthreportapp.ui.report.ReportFragment"
         android:label="@string/title_report"
         tools:layout="@layout/fragment_report" />
     <fragment
