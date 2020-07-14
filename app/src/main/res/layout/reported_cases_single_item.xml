@@ -20,48 +20,52 @@
             android:id="@+id/card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8dp"
-            android:elevation="@dimen/_8dp">
+            android:layout_margin="@dimen/_16dp"
+            android:elevation="@dimen/_16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/short_description"
+                    android:id="@+id/offenceID"
                     style="@style/TextAppearance.MaterialComponents.Headline5"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/short_description"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="Offence ID"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/short_description"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/short_description"
+                    app:layout_constraintStart_toEndOf="@+id/offenceIcon"
+                    app:layout_constraintTop_toTopOf="@+id/offenceIcon" />
+
+                <TextView
+                    android:id="@+id/short_description_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:text="Short statement of the offence"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/short_description" />
+
 
                 <TextView
                     android:id="@+id/culprit"
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/culprit"
-                    app:layout_constraintStart_toStartOf="@+id/short_description"
-                    app:layout_constraintTop_toBottomOf="@+id/short_description" />
-
-                <TextView
-                    android:id="@+id/culprit_name"
-                    style="@style/TextAppearance.MaterialComponents.Body2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="@{offence.culprit}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/culprit"
-                    app:layout_constraintTop_toTopOf="@+id/culprit"
-                    tools:text="@string/culprint_name" />
+                    android:text="@string/culprit"
+                    app:culpritString="@{offence.culprit}"
+                    app:layout_constraintStart_toEndOf="@+id/imageView8"
+                    app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
                 <TextView
                     android:id="@+id/matatu_details"
@@ -70,33 +74,60 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@string/matatu_details"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/culprit"
                     app:layout_constraintTop_toBottomOf="@+id/culprit" />
 
                 <TextView
                     android:id="@+id/matatu_id"
                     style="@style/TextAppearance.MaterialComponents.Body2"
+                    numberPlate="@{offence.mattId}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/number_plate"
+                    app:layout_constraintStart_toEndOf="@+id/imageView5"
+                    app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+                <TextView
+                    android:id="@+id/route_name"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/route_name"
+                    app:layout_constraintStart_toEndOf="@+id/imageView6"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView5"
+                    app:routeName="@{offence.routeName}" />
+
+                <TextView
+                    android:id="@+id/sacco_name"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
+                    saccoName="@{offence.saccoName}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{offence.mattId}"
-                    app:layout_constraintStart_toStartOf="@+id/matatu_details"
-                    app:layout_constraintTop_toBottomOf="@+id/matatu_details"
-                    tools:text="@string/kcd_133k" />
+                    android:text="@string/sacco_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/route_name" />
+
+                <TextView
+                    android:id="@+id/other_matatu_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Some Other Matatu Details."
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sacco_name" />
 
                 <TextView
                     android:id="@+id/offence_long_description"
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="8dp"
                     android:text="@string/offence_description"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/matatu_id"
-                    app:layout_constraintTop_toBottomOf="@+id/matatu_id" />
+                    app:layout_constraintStart_toEndOf="@+id/imageView7"
+                    app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
                 <TextView
                     android:id="@+id/office_long_description_text"
@@ -105,11 +136,60 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@{offence.offenceDescription}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/matatu_id"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/offence_long_description"
                     tools:text="@string/long_description" />
+
+                <ImageView
+                    android:id="@+id/offenceIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:tint="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/offenceID"
+                    app:srcCompat="@drawable/ic_noun_summary_2819237" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:tint="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/matatu_details"
+                    app:srcCompat="@drawable/ic_noun_license_plate_1931009" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:tint="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/matatu_id"
+                    app:srcCompat="@drawable/ic_noun_route_1941475" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:tint="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/other_matatu_details"
+                    app:srcCompat="@drawable/ic_noun_description_2303077" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:tint="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/short_description_text"
+                    app:srcCompat="@drawable/ic_noun_bad_1649029" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 

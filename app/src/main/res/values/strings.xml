@@ -19,14 +19,15 @@
     <string name="long_description">Some Very Long Description.</string>
     <string name="short_description">Offence Short Description</string>
     <string name="culprint_name">Culprint Name</string>
-    <string name="culprit">Culprit:</string>
-    <string name="sacco_name">Sacco Name</string>
+    <string name="culprit">Culprit: %1$s</string>
+    <string name="sacco_name">Sacco Name: %1$s</string>
     <string name="offender">Offender</string>
     <string name="offence">Offence</string>
-    <string name="route_name">Route Name</string>
+    <string name="route_name">Route Name: %1$s</string>
     <string name="plate_number">Plate Number</string>
     <string name="matatu_details">Matatu Details</string>
     <string name="report_matatu_offences">Report Matatu offences</string>
+    <string name="number_plate">Number Plate: %1$s</string>
     <string-array name="countries">
         <item>Global</item>
         <item>Kenya</item>
