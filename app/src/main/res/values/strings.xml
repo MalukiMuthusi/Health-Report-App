@@ -21,9 +21,11 @@
     <string name="culprint_name">Culprint Name</string>
     <string name="culprit">Culprit: %1$s</string>
     <string name="sacco_name">Sacco Name: %1$s</string>
+    <string name="sacco_name_hint">Sacco Name</string>
     <string name="offender">Offender</string>
     <string name="offence">Offence</string>
     <string name="route_name">Route Name: %1$s</string>
+    <string name="route_name_hint">Route Name</string>
     <string name="plate_number">Plate Number</string>
     <string name="matatu_details">Matatu Details</string>
     <string name="report_matatu_offences">Report Matatu offences</string>

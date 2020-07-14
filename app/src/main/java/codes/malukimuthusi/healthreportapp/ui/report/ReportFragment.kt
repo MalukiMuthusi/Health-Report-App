@@ -51,7 +51,7 @@ class ReportFragment : Fragment() {
             )
 
             db.collection("offences")
-                .add(offence1)
+                .add(getReport())
                 .addOnSuccessListener {
                     Snackbar.make(binding.fab, "Offence Reported", Snackbar.LENGTH_LONG).show()
                 }
@@ -60,5 +60,19 @@ class ReportFragment : Fragment() {
                 }
 
         }
+    }
+
+    private fun getReport(): Offence {
+
+        val mattId = binding.mattID.editText?.text.toString()
+        val culprit = binding.offender.editText?.text.toString()
+        val routeName = binding.route.editText?.text.toString()
+        val saccoName = binding.sacco.editText?.text.toString()
+        val shortSummary = binding.shortDescription.editText?.text.toString()
+        val longDescription = binding.longDescription.editText?.text.toString()
+
+        val offence = Offence(mattId, culprit, shortSummary, longDescription, routeName, saccoName)
+
+        return offence
     }
 }
