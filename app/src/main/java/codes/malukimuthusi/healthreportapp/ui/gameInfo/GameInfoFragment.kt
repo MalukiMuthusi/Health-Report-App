@@ -1,6 +1,9 @@
 package codes.malukimuthusi.healthreportapp.ui.gameInfo
 
 import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.AttributeSet
@@ -16,6 +19,7 @@ import codes.malukimuthusi.healthreportapp.R
 import codes.malukimuthusi.healthreportapp.dataModels.GameImage
 import codes.malukimuthusi.healthreportapp.databinding.FragmentGameInfoBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class GameInfoFragment : Fragment() {
 
@@ -32,11 +36,8 @@ class GameInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentGameInfoBinding.inflate(inflater, container, false)
-
-
-
-        return binding.root
+        val bindingView = inflater.inflate(R.layout.fragment_game_info, container, false)
+        return bindingView.root
     }
 
     private fun gameLogic(index: Int, image: ImageView) {
@@ -127,29 +128,71 @@ class GameInfoFragment : Fragment() {
     inner class GameView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
-        defStyleAttr: Int = R.attr.seekBarStyle,
+        defStyleAttr: Int = 0,
         defStyleRes: Int = 0
     ) : View(context, attrs, defStyleAttr, defStyleRes) {
         private val imagesToDraw = mutableListOf<Drawable?>()
         private var imageWidth: Int = 0
         private var imageHeight = 0
+        private lateinit var levelOnePaint: Paint
+        private val level = 1
 
 
         init {
-            when (viewModel.glv) {
+            initializeLevelOne()
+
+//            when (viewModel.glv) {
+//                1 -> {
+//                    initializeLevelOne()
+//                }
+//            }
+
+        }
+
+        // set up measurements of my objects
+        override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+            super.onSizeChanged(w, h, oldw, oldh)
+
+            when (level) {
                 1 -> {
-                    initializeLevelOne()
-                }
-                2 -> {
+                    levelOneOnSizeChanged(w, h, oldw, oldh)
                 }
             }
+        }
 
+        override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+            when (viewModel.glv) {
+                1 -> {
+                    levelOneOnMeasure(widthMeasureSpec, heightMeasureSpec)
+                }
+
+            }
+
+            // specify how much size I need.
+        }
+
+        override fun onDraw(canvas: Canvas?) {
+            super.onDraw(canvas)
+
+            when (viewModel.glv) {
+                1 -> {
+                    levelOneOnDraw(canvas)
+                }
+            }
         }
 
         private fun initializeLevelOne() {
             val shuffledImages = imageList.shuffled()
             for (index in 0..levelOneSize) {
                 imagesToDraw.add(index, ContextCompat.getDrawable(context, shuffledImages[index]))
+            }
+
+            levelOnePaint = Paint().apply {
+                isAntiAlias = true
+                style = Paint.Style.STROKE
+                color = ContextCompat.getColor(context, R.color.colorPrimary)
             }
         }
 
@@ -160,34 +203,29 @@ class GameInfoFragment : Fragment() {
             imageWidth = availableWidth / 2
             imageHeight = imageWidth
 
-        }
+            var rectBound: Rect
 
-        override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-            super.onSizeChanged(w, h, oldw, oldh)
+            for ((index, drawable) in imagesToDraw.withIndex()) {
+                rectBound = Rect(
+                    paddingLeft,
+                    paddingTop,
+                    paddingLeft + imageWidth,
+                    paddingTop + imageHeight
+                )
+                when {
 
-            when (viewModel.glv) {
-                1 -> {
-                    levelOneOnSizeChanged(w, h, oldw, oldh)
+                    ((index % 2) == 0) -> {
+                        rectBound.offset(0, imageHeight * (index / 2))
+                    }
+
+                    else -> {
+                        rectBound.offset(imageWidth, imageHeight * (index / 2))
+                    }
                 }
-                2 -> {
-                }
+
+                drawable?.bounds = rectBound
             }
 
-            // calculate the measurements of my shapes here.
-        }
-
-        override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-
-            when (viewModel.glv) {
-                1 -> {
-                    levelOneOnMeasure(widthMeasureSpec, heightMeasureSpec)
-                }
-                2 -> {
-                }
-            }
-
-            // specify how much size I need.
         }
 
         private fun levelOneOnMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -207,6 +245,22 @@ class GameInfoFragment : Fragment() {
             val height = resolveSizeAndState(desiredHeight, heightMeasureSpec, 0)
 
             setMeasuredDimension(width, height)
+        }
+
+
+        private fun levelOneOnDraw(canvas: Canvas?) {
+
+            for ((index, drawable) in imagesToDraw.withIndex()) {
+
+                if (canvas != null) {
+                    drawable?.draw(canvas)
+                }
+
+                val rect = drawable?.bounds
+                rect?.let {
+                    canvas?.drawRect(rect, levelOnePaint)
+                }
+            }
         }
 
     }

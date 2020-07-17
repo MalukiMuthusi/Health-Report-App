@@ -2,23 +2,20 @@ package codes.malukimuthusi.healthreportapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
+import codes.malukimuthusi.healthreportapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-        val drawer: DrawerLayout = findViewById(R.id.drawer)
-        val navigationView: NavigationView = findViewById(R.id.navigationView)
+        setContentView(binding.root)
 
         val navController = findNavController(R.id.nav_host_fragment)
-        navigationView.setupWithNavController(navController)
-        navView.setupWithNavController(navController)
+        binding.navigationView.setupWithNavController(navController)
+        binding.navView.setupWithNavController(navController)
     }
 }
