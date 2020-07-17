@@ -33,4 +33,7 @@ class GameInfoViewModel : ViewModel() {
     // track the clicked image
     var currentClickedImage: GameImage = GameImage(imageIndex = -1)
 
+    // save the game level
+    var glv: Int = 1
+
 }
