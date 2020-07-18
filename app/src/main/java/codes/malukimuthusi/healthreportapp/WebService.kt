@@ -4,6 +4,7 @@ import codes.malukimuthusi.healthreportapp.dataModels.KenyaSummary
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface WebService {
     @GET("api/countries/ke")
@@ -11,6 +12,9 @@ interface WebService {
 
     @GET("api")
     suspend fun fetchGlobal(): KenyaSummary
+
+    @GET("{uss}")
+    suspend fun fetchData(@Path("uss") apipp: String): KenyaSummary
 }
 
 object Covid19APIService {

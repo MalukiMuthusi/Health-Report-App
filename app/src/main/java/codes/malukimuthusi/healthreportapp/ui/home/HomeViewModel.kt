@@ -28,15 +28,24 @@ class HomeViewModel : ViewModel() {
     // toast for success
 
 
-    fun fetching() {
+    fun fetching(which: Boolean = false) {
         val service = Covid19APIService.webService
+
 
         try {
             CoroutineScope(Dispatchers.Main).launch {
-                _kenyaData.value = service.fetchKenyaData()
-                confirmed = _kenyaData.value?.confirmed?.value.toString()
-                recorvered = _kenyaData.value?.recovered?.value.toString()
-                deaths = _kenyaData.value?.deaths?.value.toString()
+                if (which) {
+                    _kenyaData.value = service.fetchKenyaData()
+                    confirmed = _kenyaData.value?.confirmed?.value.toString()
+                    recorvered = _kenyaData.value?.recovered?.value.toString()
+                    deaths = _kenyaData.value?.deaths?.value.toString()
+                }else{
+                    _kenyaData.value = service.fetchGlobal()
+                    confirmed = _kenyaData.value?.confirmed?.value.toString()
+                    recorvered = _kenyaData.value?.recovered?.value.toString()
+                    deaths = _kenyaData.value?.deaths?.value.toString()
+                }
+
             }
 
         } catch (e: Exception) {
@@ -53,6 +62,25 @@ class HomeViewModel : ViewModel() {
 
     fun toastShown() {
         _toast.value = false
+    }
+
+    // make a call to web service, to fetch data
+    fun fetchData(apiPoint: String) {
+        val service = Covid19APIService.webService
+
+        try {
+            CoroutineScope(Dispatchers.Main).launch {
+                _kenyaData.value = service.fetchData(apiPoint)
+
+                confirmed = _kenyaData.value?.confirmed?.value.toString()
+                recorvered = _kenyaData.value?.recovered?.value.toString()
+                deaths = _kenyaData.value?.deaths?.value.toString()
+            }
+        } catch (e: Error) {
+            Timber.e(e)
+        } catch (e: Throwable) {
+            Timber.e(e)
+        }
     }
 
 }

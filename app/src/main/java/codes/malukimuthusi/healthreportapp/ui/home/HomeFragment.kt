@@ -39,13 +39,19 @@ class HomeFragment : Fragment() {
             transparentCircleRadius = 0f
             invalidate()
         }
-        homeViewModel.fetching()
+        homeViewModel.fetching(true)
+
 
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.kenya -> {
                     Toast.makeText(requireContext(), "KENYA selected", Toast.LENGTH_SHORT).show()
 //                    homeViewModel.fetching()
+                    homeViewModel.fetching(true)
+                }
+
+                R.id.global -> {
+                    homeViewModel.fetching()
                 }
             }
         }
