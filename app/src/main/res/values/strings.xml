@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Health Report</string>
     <string name="title_home">Home</string>
-    <string name="title_info">Info</string>
+    <string name="title_global">Global</string>
     <string name="title_report">Report</string>
     <string name="image_description">Image of Covid-19 actions.</string>
     <string name="title_message">Health Report</string>
-    <string name="covid_19_live_tracker">Covid-19 Tracker</string>
+    <string name="covid_19_live_tracker">Local Covid-19 Tracker</string>
     <string name="kenya">Kenya</string>
     <string name="global">Global</string>
     <string name="number_blank">-</string>
@@ -30,6 +30,7 @@
     <string name="matatu_details">Matatu Details</string>
     <string name="report_matatu_offences">Report Matatu offences</string>
     <string name="number_plate">Number Plate: %1$s</string>
+    <string name="gloabl_covid_19_tracker">Global Covid-19 Tracker</string>
     <string-array name="countries">
         <item>Global</item>
         <item>Kenya</item>

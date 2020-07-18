@@ -6,12 +6,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 interface WebService {
-    @GET("countries/ke")
+    @GET("api/countries/ke")
     suspend fun fetchKenyaData(): KenyaSummary
+
+    @GET("api")
+    suspend fun fetchGlobal(): KenyaSummary
 }
 
 object Covid19APIService {
-    val baseURL = "https://covid19.mathdro.id/api/"
+    val baseURL = "https://covid19.mathdro.id/"
     private val retrofit = Retrofit.Builder()
         .baseUrl(baseURL)
         .addConverterFactory(GsonConverterFactory.create())

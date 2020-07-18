@@ -36,23 +36,16 @@ class HomeFragment : Fragment() {
             legend.isEnabled = false
             isDrawHoleEnabled = true
             holeRadius = 60f
-//            setTouchEnabled(false)
-//            setDrawEntryLabels(false)
             transparentCircleRadius = 0f
-//            setHoleColor(ContextCompat.getColor(requireContext(), R.color.background))
             invalidate()
         }
-
+        homeViewModel.fetching()
 
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.kenya -> {
                     Toast.makeText(requireContext(), "KENYA selected", Toast.LENGTH_SHORT).show()
-                    homeViewModel.fetching()
-                }
-
-                R.id.global -> {
-                    Toast.makeText(requireContext(), "GLOBAL selecetd", Toast.LENGTH_SHORT).show()
+//                    homeViewModel.fetching()
                 }
             }
         }
