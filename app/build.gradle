@@ -97,4 +97,8 @@ dependencies {
 
     // firebaseUI Cloud Store
     implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'
+
+    // firebaseUI AUTH
+    implementation 'com.firebaseui:firebase-ui-auth:6.2.1'
+
 }

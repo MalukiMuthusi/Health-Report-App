@@ -9,7 +9,10 @@ import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import codes.malukimuthusi.healthreportapp.dataModels.Offence
 import codes.malukimuthusi.healthreportapp.databinding.FragmentReportBinding
+import com.firebase.ui.auth.AuthUI
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ActionCodeSettings
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import timber.log.Timber
@@ -74,5 +77,40 @@ class ReportFragment : Fragment() {
         val offence = Offence(mattId, culprit, shortSummary, longDescription, routeName, saccoName)
 
         return offence
+    }
+
+    private fun isAdmin() {
+        val auth = FirebaseAuth.getInstance()
+
+        val actionCodeString = ActionCodeSettings.newBuilder()
+            .setAndroidPackageName("codes.malukimuthusi.healthreportapp", true, null)
+            .setHandleCodeInApp(true)
+            .setUrl("https://google.com")
+            .build()
+
+        val providers = listOf(
+            AuthUI.IdpConfig.EmailBuilder()
+                .enableEmailLinkSignIn()
+                .setActionCodeSettings(actionCodeString)
+                .build()
+        )
+
+        val loginIntent = AuthUI.getInstance().createSignInIntentBuilder()
+            .setAvailableProviders(providers)
+            .build()
+
+        if (auth.currentUser == null) {
+            // not signed in
+            startActivityForResult(loginIntent, RC_SIGN_IN)
+        }
+
+        auth.currentUser?.let {
+            // user is signed in
+        }
+
+    }
+
+    companion object {
+        const val RC_SIGN_IN = 8925
     }
 }
