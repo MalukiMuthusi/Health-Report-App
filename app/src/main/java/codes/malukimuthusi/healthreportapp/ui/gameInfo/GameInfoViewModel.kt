@@ -6,7 +6,7 @@ import codes.malukimuthusi.healthreportapp.dataModels.GameImage
 
 class GameInfoViewModel : ViewModel() {
 
-    val resourcesList = listOf(
+    var resourcesList = listOf(
         R.drawable.ic_noun_avoid_hand_shake_3365076,
         R.drawable.ic_noun_avoid_hand_shake_3365076,
         R.drawable.ic_noun_cleaning_3311960,
@@ -22,7 +22,23 @@ class GameInfoViewModel : ViewModel() {
     )
 
     // toast for success
-    val imageStateList = listOf(
+    var imageStateList = listOf(
+        GameImage(),
+        GameImage(),
+        GameImage(),
+        GameImage(),
+        GameImage(),
+        GameImage(),
+        GameImage(),
+        GameImage(),
+        GameImage(),
+        GameImage(),
+        GameImage(),
+        GameImage()
+    )
+
+    // initial game state
+    val newGameState = listOf(
         GameImage(),
         GameImage(),
         GameImage(),

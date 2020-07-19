@@ -16,6 +16,7 @@ import codes.malukimuthusi.healthreportapp.R
 import codes.malukimuthusi.healthreportapp.dataModels.GameImage
 import codes.malukimuthusi.healthreportapp.databinding.FragmentGameInfoBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -26,6 +27,7 @@ class GameInfoFragment : Fragment() {
     private var matchedCounter = 0
     private var level = 0
     private var points = 0
+    private lateinit var timeCounterJob: Job
 
     private lateinit var imageList: List<ImageView>
     private lateinit var sharedPreferences: SharedPreferences
@@ -43,8 +45,15 @@ class GameInfoFragment : Fragment() {
         gameSetUp()
         imageClickActions()
 
-        checkCounter()
+        timeCounter()
+        changeImageResource()
         return binding.root
+    }
+
+    private fun changeImageResource() {
+        for ((index, image) in imageList.withIndex()) {
+            image.setImageResource(viewModel.imageStateList[index].resource)
+        }
     }
 
     private fun gameSetUp() {
@@ -67,7 +76,10 @@ class GameInfoFragment : Fragment() {
 
         // get saved points
         points = sharedPreferences.getInt(getString(R.string.point_scores), points)
+        binding.points.text = getString(R.string.points, points)
+
         level = sharedPreferences.getInt(getString(R.string.level_count), level)
+        binding.level.text = getString(R.string.level, level)
 
     }
 
@@ -108,23 +120,32 @@ class GameInfoFragment : Fragment() {
     }
 
     private fun trackMatchedImages() {
-
         ++matchedCounter
+        rewardPoints()
 
-        if (matchedCounter == imageList.size) {
+        if (matchedCounter == (imageList.size - 1)) {
             // TODO: change Level
+            changeLevel()
+            resetTimeCounter()
 
             // TODO: reset matched
+            resetGameState()
         }
     }
 
-    private fun rewardPoints() {
+    private fun resetTimeCounter() {
+        timeCounterJob.cancel()
+        binding.counter.text = getString(R.string.counter_string)
 
+    }
+
+    private fun rewardPoints() {
         points += 10
         with(sharedPreferences.edit()) {
             putInt(getString(R.string.point_scores), points)
             apply()
         }
+        binding.points.text = getString(R.string.points, points)
 
     }
 
@@ -154,7 +175,7 @@ class GameInfoFragment : Fragment() {
                 if (viewModel.currentClickedImage.resource == viewModel.imageStateList[index].resource) {
 
                     // match found
-                    showSnackBar()
+                    showSnackBar("Matched")
                     trackMatchedImages()
 
                     // change tint of matched images
@@ -196,17 +217,25 @@ class GameInfoFragment : Fragment() {
 
     }
 
-    private fun checkCounter() {
-        lifecycleScope.launch {
+    private fun timeCounter() {
+        timeCounterJob = lifecycleScope.launch {
             repeat(10) {
                 binding.counter.text = getString(R.string.counter, it)
                 delay(1000)
             }
-            Snackbar.make(binding.card, "Game Over", Snackbar.LENGTH_LONG).show()
+            showSnackBar("Game Over")
+            // TODO reset the game
         }
     }
 
-    private fun showSnackBar() {
-        Snackbar.make(binding.card, "CARD TOAST", Snackbar.LENGTH_LONG)
+    private fun resetGameState() {
+        viewModel.imageStateList = viewModel.newGameState
+        viewModel.resourcesList = viewModel.resourcesList.shuffled()
+        viewModel.currentClickedImage = GameImage(imageIndex = -1)
+        matchedCounter = 0
+    }
+
+    private fun showSnackBar(message: String) {
+        Snackbar.make(binding.card, message, Snackbar.LENGTH_LONG)
     }
 }

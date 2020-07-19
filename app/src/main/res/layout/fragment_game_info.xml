@@ -155,7 +155,7 @@
                     app:srcCompat="@drawable/ic_texture_black_24dp" />
 
                 <TextView
-                    android:id="@+id/matched_counter"
+                    android:id="@+id/level"
                     style="@style/TextAppearance.MaterialComponents.Headline5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -173,11 +173,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/counter_string"
-                    app:layout_constraintBottom_toBottomOf="@+id/matched_counter"
+                    app:layout_constraintBottom_toBottomOf="@+id/level"
                     app:layout_constraintEnd_toStartOf="@+id/points"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/matched_counter"
-                    app:layout_constraintTop_toTopOf="@+id/matched_counter" />
+                    app:layout_constraintStart_toEndOf="@+id/level"
+                    app:layout_constraintTop_toTopOf="@+id/level" />
 
                 <TextView
                     android:id="@+id/points"
