@@ -1,5 +1,6 @@
 package codes.malukimuthusi.healthreportapp
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -18,4 +19,24 @@ class MainActivity : AppCompatActivity() {
         binding.navigationView.setupWithNavController(navController)
         binding.navView.setupWithNavController(navController)
     }
+
+
+
+    private fun checkAdminRights() {
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+
+        val isAdmin = sharedPref.getBoolean(getString(R.string.admin_string), false)
+
+        if (isAdmin) {
+//            logInForAdmin()
+        }
+
+    }
+
+
+
+    companion object {
+        const val RC_SIGN_IN = 8925
+    }
+
 }

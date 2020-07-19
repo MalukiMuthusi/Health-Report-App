@@ -21,7 +21,11 @@
         android:id="@+id/navigation_report"
         android:name="codes.malukimuthusi.healthreportapp.ui.report.ReportFragment"
         android:label="@string/title_report"
-        tools:layout="@layout/fragment_report" />
+        tools:layout="@layout/fragment_report" >
+        <action
+            android:id="@+id/action_navigation_report_to_reportsViewFragment"
+            app:destination="@id/reportsViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/reportsViewFragment"
         android:name="codes.malukimuthusi.healthreportapp.ReportsViewFragment"

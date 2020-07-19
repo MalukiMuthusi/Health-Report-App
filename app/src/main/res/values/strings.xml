@@ -35,4 +35,7 @@
         <item>Global</item>
         <item>Kenya</item>
     </string-array>
+
+    <string name="admin_string">IS_ADMIN</string>
+    <string name="select_account">Should_Select_Account</string>
 </resources>
