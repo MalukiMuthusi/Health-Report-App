@@ -11,118 +11,160 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/root_game"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.gameInfo.GameInfoFragment">
 
-
-        <TextView
-            android:id="@+id/covid19Tracker_game"
-            style="@style/TextAppearance.MaterialComponents.Headline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/gloabl_covid_19_tracker"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/pi_chart"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/covid19Tracker_game">
-
-        </com.github.mikephil.charting.charts.PieChart>
-
-        <HorizontalScrollView
-            android:id="@+id/chips_game"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pi_chart">
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_16dp">
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group_game"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipSpacingHorizontal="@dimen/_16dp"
-                app:singleLine="true"
-                app:singleSelection="true">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/global"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/root_game"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_texture_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView1"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imageView1"
+                    app:layout_constraintTop_toTopOf="@+id/imageView1"
+                    app:srcCompat="@drawable/ic_texture_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="@+id/imageView2"
+                    app:srcCompat="@drawable/ic_texture_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView5"
+                    app:layout_constraintStart_toStartOf="@+id/imageView1"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView1"
+                    app:srcCompat="@drawable/ic_texture_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_100dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imageView4"
+                    app:layout_constraintTop_toTopOf="@+id/imageView4"
+                    app:srcCompat="@drawable/ic_texture_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_100dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                    app:layout_constraintStart_toEndOf="@+id/imageView5"
+                    app:layout_constraintTop_toTopOf="@+id/imageView5"
+                    app:srcCompat="@drawable/ic_texture_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_100dp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView8"
+                    app:layout_constraintStart_toStartOf="@+id/imageView4"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView4"
+                    app:srcCompat="@drawable/ic_texture_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_100dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imageView7"
+                    app:layout_constraintTop_toTopOf="@+id/imageView7"
+                    app:srcCompat="@drawable/ic_texture_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_100dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView6"
+                    app:layout_constraintStart_toEndOf="@+id/imageView8"
+                    app:layout_constraintTop_toTopOf="@+id/imageView8"
+                    app:srcCompat="@drawable/ic_texture_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_100dp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView11"
+                    app:layout_constraintStart_toStartOf="@+id/imageView7"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView7"
+                    app:srcCompat="@drawable/ic_texture_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView12"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imageView10"
+                    app:layout_constraintTop_toTopOf="@+id/imageView10"
+                    app:srcCompat="@drawable/ic_texture_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView9"
+                    app:layout_constraintStart_toEndOf="@+id/imageView11"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView8"
+                    app:srcCompat="@drawable/ic_texture_black_24dp" />
+
+                <TextView
+                    android:id="@+id/matched_counter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/global" />
-
-            </com.google.android.material.chip.ChipGroup>
-        </HorizontalScrollView>
-
-        <codes.malukimuthusi.healthreportapp.SingleStatView
-            android:id="@+id/recovered_game"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:icon="@drawable/ic_baseline_favorite_border_24"
-            app:iconColor="@color/GREEN_A_700"
-            app:layout_constraintEnd_toStartOf="@+id/confirmed_game"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chips_game"
-            app:statValue="-"
-            app:title="@string/recovered">
-
-
-        </codes.malukimuthusi.healthreportapp.SingleStatView>
-
-        <codes.malukimuthusi.healthreportapp.SingleStatView
-            android:id="@+id/confirmed_game"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:icon="@drawable/ic_info_outline_black_24dp"
-            app:iconColor="@color/YELLOW_A_700"
-            app:layout_constraintBottom_toBottomOf="@+id/recovered_game"
-            app:layout_constraintEnd_toStartOf="@+id/deaths_game"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/recovered_game"
-            app:layout_constraintTop_toTopOf="@+id/recovered_game"
-            app:statValue="-"
-            app:title="@string/confirmed" />
-
-
-        <codes.malukimuthusi.healthreportapp.SingleStatView
-            android:id="@+id/deaths_game"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:icon="@drawable/ic_emoticon_death_24dp"
-            app:iconColor="@color/RED_A_700"
-            app:layout_constraintBottom_toBottomOf="@+id/confirmed_game"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/confirmed_game"
-            app:layout_constraintTop_toTopOf="@+id/confirmed_game"
-            app:statValue="-"
-            app:title="@string/deaths" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginTop="16dp"
+                    android:text="TextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.25"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 </layout>

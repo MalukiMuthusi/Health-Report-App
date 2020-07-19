@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
             transparentCircleRadius = 0f
             invalidate()
         }
-        homeViewModel.fetching(true)
+//        homeViewModel.fetching(true)
 
 
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->

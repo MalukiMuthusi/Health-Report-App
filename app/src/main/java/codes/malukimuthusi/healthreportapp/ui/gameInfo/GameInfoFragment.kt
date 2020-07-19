@@ -4,22 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import codes.malukimuthusi.healthreportapp.R
+import codes.malukimuthusi.healthreportapp.dataModels.GameImage
 import codes.malukimuthusi.healthreportapp.databinding.FragmentGameInfoBinding
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
-import kotlinx.android.synthetic.main.compound_view.view.*
+import com.google.android.material.snackbar.Snackbar
 
 class GameInfoFragment : Fragment() {
 
     private val viewModel: GameInfoViewModel by activityViewModels()
     private lateinit var binding: FragmentGameInfoBinding
+
+    private lateinit var imageList: List<ImageView>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,82 +29,126 @@ class GameInfoFragment : Fragment() {
         binding = FragmentGameInfoBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        viewModel.fetching()
 
-        binding.piChart.apply {
-            description.isEnabled = false
-            legend.isEnabled = false
-            isDrawHoleEnabled = true
-            holeRadius = 60f
-            transparentCircleRadius = 0f
-            invalidate()
-        }
-
-
-        binding.chipGroupGame.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.global -> {
-                    Toast.makeText(requireContext(), "GLOBAL selecetd", Toast.LENGTH_SHORT).show()
-//                    viewModel.fetching()
-                }
-            }
-        }
-
-
-
-        viewModel.kenyaData.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), it.lastUpdate, Toast.LENGTH_SHORT).show()
-            binding.confirmedGame.stat_value.text = it.confirmed?.value.toString()
-            binding.deathsGame.stat_value.text = it.deaths?.value.toString()
-            binding.recoveredGame.stat_value.text = it.recovered?.value.toString()
-
-            setUpPieChart(
-                it.recovered?.value?.toFloat() ?: 0f,
-                it.confirmed?.value?.toFloat() ?: 0f,
-                it.deaths?.value?.toFloat() ?: 0f
-            )
-
-        })
-
-        viewModel.showErrorToast.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                Toast.makeText(requireContext(), "Failed to Get Data", Toast.LENGTH_SHORT)
-                    .show()
-                viewModel.toastShown()
-            }
-        })
+        gameSetUp()
+        imageClickActions()
 
         return binding.root
     }
 
-
-    private fun setUpPieChart(recovered: Float, inflected: Float, dead: Float) {
-        // list of data entries for the pie chart
-        val pieList = listOf(
-            PieEntry(recovered, "Recovered"),
-            PieEntry(inflected, "Confirmed"),
-            PieEntry(dead, "Deaths")
-        )
-
-        val dataSet = PieDataSet(pieList, "Covid-19 Stats")
-        dataSet.apply {
-            colors = getColorList()
-            setDrawValues(false)
+    private fun gameSetUp() {
+        binding.apply {
+            imageList = listOf(
+                imageView1,
+                imageView2,
+                imageView3,
+                imageView4,
+                imageView5,
+                imageView6,
+                imageView7,
+                imageView8,
+                imageView9,
+                imageView10,
+                imageView11,
+                imageView12
+            )
         }
-        binding.piChart.data = PieData(dataSet)
-        binding.piChart.invalidate()
     }
 
-    private fun getColorList(): List<Int> {
-        return listOf(
-            getColor(R.color.GREEN_A_700), getColor(R.color.YELLOW_A_700),
-            getColor(R.color.RED_A_700)
+    private fun closeImage(image: ImageView) {
+        image.setImageDrawable(
+            ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.ic_texture_black_24dp,
+                null
+            )
         )
     }
 
-    private fun getColor(colorId: Int): Int {
-        return ContextCompat.getColor(requireContext(), colorId)
+
+    private fun revealImage(image: ImageView, index: Int) {
+        image.setImageDrawable(
+            ResourcesCompat.getDrawable(
+                resources,
+                viewModel.imageStateList[index].resource,
+                null
+            )
+        )
     }
 
+    private fun imageClickActions() {
+        for ((index, image) in imageList.withIndex()) {
 
+            // [start] onclickListener
+            image.setOnClickListener {
+
+                gameLogic(index, image)
+
+            }
+            // [end] onclickListener
+        }
+
+
+    }
+
+    private fun gameLogic(index: Int, image: ImageView) {
+
+        // check for double clicking
+        if (!viewModel.imageStateList[index].imageRevealed) {
+
+            viewModel.imageStateList[index].resource = viewModel.resourcesList[index]
+
+            // reveal the image clicked.
+            revealImage(image, index)
+            viewModel.imageStateList[index].imageRevealed = true
+
+            // check if match is being waited.
+            if (viewModel.currentClickedImage.imageIndex != -1) {
+
+                // check for match
+                if (viewModel.currentClickedImage.resource == viewModel.imageStateList[index].resource) {
+                    showSnackBar()
+
+                    // change tint of matched images
+                    image.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.colorPrimary
+                        ), android.graphics.PorterDuff.Mode.SRC_IN
+                    )
+
+                    imageList[viewModel.currentClickedImage.imageIndex].setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.colorPrimary
+                        ), android.graphics.PorterDuff.Mode.SRC_IN
+                    )
+
+                    viewModel.currentClickedImage = GameImage(resource = 0, imageIndex = -1)
+
+                    // no match found
+                } else {
+
+                    closeImage(imageList[viewModel.currentClickedImage.imageIndex])
+                    viewModel.imageStateList[viewModel.currentClickedImage.imageIndex].imageRevealed =
+                        false
+                    closeImage(image)
+                    viewModel.imageStateList[index].imageRevealed = false
+                    viewModel.currentClickedImage = GameImage(resource = 0, imageIndex = -1)
+
+                }
+
+                // no match was waited. It is a fresh new click
+            } else {
+                viewModel.currentClickedImage = viewModel.imageStateList[index]
+                viewModel.currentClickedImage.imageIndex = index
+            }
+
+        }
+
+    }
+
+    private fun showSnackBar() {
+        Snackbar.make(binding.card, "CARD TOAST", Snackbar.LENGTH_LONG)
+    }
 }
