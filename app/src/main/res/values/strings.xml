@@ -38,4 +38,12 @@
 
     <string name="admin_string">IS_ADMIN</string>
     <string name="select_account">Should_Select_Account</string>
+    <string name="counter_string">Counter</string>
+    <string name="counter">%1$d</string>
+    <string name="level_string">Level</string>
+    <string name="level">Level: %1$d</string>
+    <string name="points_string">Points</string>
+    <string name="points">Points: %1$d</string>
+    <string name="point_scores">POINT_SCORES</string>
+    <string name="level_count">LEVEL_COUNT</string>
 </resources>

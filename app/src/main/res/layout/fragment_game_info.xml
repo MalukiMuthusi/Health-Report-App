@@ -156,14 +156,40 @@
 
                 <TextView
                     android:id="@+id/matched_counter"
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="TextView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.25"
+                    android:text="@string/level_string"
+                    app:layout_constraintEnd_toStartOf="@+id/counter"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+
+                <TextView
+                    android:id="@+id/counter"
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/counter_string"
+                    app:layout_constraintBottom_toBottomOf="@+id/matched_counter"
+                    app:layout_constraintEnd_toStartOf="@+id/points"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/matched_counter"
+                    app:layout_constraintTop_toTopOf="@+id/matched_counter" />
+
+                <TextView
+                    android:id="@+id/points"
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/points_string"
+                    app:layout_constraintBottom_toBottomOf="@+id/counter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/counter"
+                    app:layout_constraintTop_toTopOf="@+id/counter" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </FrameLayout>

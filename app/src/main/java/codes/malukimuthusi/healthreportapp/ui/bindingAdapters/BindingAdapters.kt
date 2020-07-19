@@ -27,3 +27,5 @@ fun routeName(view: TextView, routeName: String) {
 fun saccoName(view: TextView, saccoName: String) {
     view.text = view.context.getString(R.string.sacco_name, saccoName)
 }
+
+// Images view for the game

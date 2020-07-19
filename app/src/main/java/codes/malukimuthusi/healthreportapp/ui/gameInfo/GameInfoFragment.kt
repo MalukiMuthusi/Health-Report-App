@@ -1,5 +1,7 @@
 package codes.malukimuthusi.healthreportapp.ui.gameInfo
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,17 +11,24 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import codes.malukimuthusi.healthreportapp.R
 import codes.malukimuthusi.healthreportapp.dataModels.GameImage
 import codes.malukimuthusi.healthreportapp.databinding.FragmentGameInfoBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class GameInfoFragment : Fragment() {
 
     private val viewModel: GameInfoViewModel by activityViewModels()
     private lateinit var binding: FragmentGameInfoBinding
+    private var matchedCounter = 0
+    private var level = 0
+    private var points = 0
 
     private lateinit var imageList: List<ImageView>
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,10 +38,12 @@ class GameInfoFragment : Fragment() {
         binding = FragmentGameInfoBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
 
         gameSetUp()
         imageClickActions()
 
+        checkCounter()
         return binding.root
     }
 
@@ -53,6 +64,11 @@ class GameInfoFragment : Fragment() {
                 imageView12
             )
         }
+
+        // get saved points
+        points = sharedPreferences.getInt(getString(R.string.point_scores), points)
+        level = sharedPreferences.getInt(getString(R.string.level_count), level)
+
     }
 
     private fun closeImage(image: ImageView) {
@@ -91,6 +107,35 @@ class GameInfoFragment : Fragment() {
 
     }
 
+    private fun trackMatchedImages() {
+
+        ++matchedCounter
+
+        if (matchedCounter == imageList.size) {
+            // TODO: change Level
+
+            // TODO: reset matched
+        }
+    }
+
+    private fun rewardPoints() {
+
+        points += 10
+        with(sharedPreferences.edit()) {
+            putInt(getString(R.string.point_scores), points)
+            apply()
+        }
+
+    }
+
+    private fun changeLevel() {
+        level += 1
+        with(sharedPreferences.edit()) {
+            putInt(getString(R.string.level_count), level)
+            apply()
+        }
+    }
+
     private fun gameLogic(index: Int, image: ImageView) {
 
         // check for double clicking
@@ -107,7 +152,10 @@ class GameInfoFragment : Fragment() {
 
                 // check for match
                 if (viewModel.currentClickedImage.resource == viewModel.imageStateList[index].resource) {
+
+                    // match found
                     showSnackBar()
+                    trackMatchedImages()
 
                     // change tint of matched images
                     image.setColorFilter(
@@ -146,6 +194,16 @@ class GameInfoFragment : Fragment() {
 
         }
 
+    }
+
+    private fun checkCounter() {
+        lifecycleScope.launch {
+            repeat(10) {
+                binding.counter.text = getString(R.string.counter, it)
+                delay(1000)
+            }
+            Snackbar.make(binding.card, "Game Over", Snackbar.LENGTH_LONG).show()
+        }
     }
 
     private fun showSnackBar() {
