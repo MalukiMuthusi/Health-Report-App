@@ -46,4 +46,6 @@
     <string name="points">Points: %1$d</string>
     <string name="point_scores">POINT_SCORES</string>
     <string name="level_count">LEVEL_COUNT</string>
+    <string name="game">Game</string>
+    <string name="app_intro_string">AppIntroConstant</string>
 </resources>

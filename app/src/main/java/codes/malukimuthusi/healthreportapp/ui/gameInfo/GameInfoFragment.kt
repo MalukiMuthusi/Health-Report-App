@@ -1,6 +1,7 @@
 package codes.malukimuthusi.healthreportapp.ui.gameInfo
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import codes.malukimuthusi.healthreportapp.GameIntro
 import codes.malukimuthusi.healthreportapp.R
 import codes.malukimuthusi.healthreportapp.dataModels.GameImage
 import codes.malukimuthusi.healthreportapp.databinding.FragmentGameInfoBinding
@@ -47,6 +49,7 @@ class GameInfoFragment : Fragment() {
 
         timeCounter()
         changeImageResource()
+        showGameIntro()
         return binding.root
     }
 
@@ -120,10 +123,10 @@ class GameInfoFragment : Fragment() {
     }
 
     private fun trackMatchedImages() {
-        ++matchedCounter
+        matchedCounter += 1
         rewardPoints()
 
-        if (matchedCounter == (imageList.size - 1)) {
+        if (matchedCounter == imageList.size / 2) {
             // TODO: change Level
             changeLevel()
             resetTimeCounter()
@@ -155,6 +158,7 @@ class GameInfoFragment : Fragment() {
             putInt(getString(R.string.level_count), level)
             apply()
         }
+        binding.level.text = getString(R.string.level, level)
     }
 
     private fun gameLogic(index: Int, image: ImageView) {
@@ -176,7 +180,6 @@ class GameInfoFragment : Fragment() {
 
                     // match found
                     showSnackBar("Matched")
-                    trackMatchedImages()
 
                     // change tint of matched images
                     image.setColorFilter(
@@ -193,6 +196,7 @@ class GameInfoFragment : Fragment() {
                         ), android.graphics.PorterDuff.Mode.SRC_IN
                     )
 
+                    trackMatchedImages()
                     viewModel.currentClickedImage = GameImage(resource = 0, imageIndex = -1)
 
                     // no match found
@@ -233,9 +237,28 @@ class GameInfoFragment : Fragment() {
         viewModel.resourcesList = viewModel.resourcesList.shuffled()
         viewModel.currentClickedImage = GameImage(imageIndex = -1)
         matchedCounter = 0
+        updateImageUI()
+    }
+
+    private fun updateImageUI() {
+        for ((index, image) in imageList.withIndex()) {
+            revealImage(image, index)
+        }
     }
 
     private fun showSnackBar(message: String) {
         Snackbar.make(binding.card, message, Snackbar.LENGTH_LONG)
+    }
+
+    private fun showGameIntro() {
+        val appIntro = sharedPreferences.getBoolean(getString(R.string.app_intro_string), true)
+        if (appIntro) {
+            val intent = Intent(requireContext(), GameIntro::class.java)
+            startActivity(intent)
+            with(sharedPreferences.edit()) {
+                putBoolean(getString(R.string.app_intro_string), false)
+                apply()
+            }
+        }
     }
 }

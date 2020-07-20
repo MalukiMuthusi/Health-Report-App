@@ -102,4 +102,7 @@ dependencies {
     // firebaseUI AUTH
     implementation 'com.firebaseui:firebase-ui-auth:6.2.1'
 
+    // AppIntro Library
+    implementation 'com.github.AppIntro:AppIntro:6.0.0'
+
 }
